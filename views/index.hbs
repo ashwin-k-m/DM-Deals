@@ -1,0 +1,100 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; z-index: 11; width: 100%;">
+    <div class="container">
+        <a class="navbar-brand text-success col-3" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
+            href="#home">D M | D e a l s</a>
+        <div class="d-flex col-5 text-center">
+            <input type="text" id="input" class="form-control me-2" placeholder="Search...">
+            <button id="searchButton" class="btn btn-light" style="border: 0.1 rem; border-color:black ">Search</button>
+        </div>
+        <div class="col-1"></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse col-3" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#td">Deals</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                    <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                        <li><a class="dropdown-item" href="#td">Top Deals</a></li>
+                        <li><a class="dropdown-item" href="#fw">Fashion Series</a></li>
+                        <li><a class="dropdown-item" href="#sw">Sports Series</a></li>
+                        <li><a class="dropdown-item" href="#cus">Custom Series</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+            <button id="cart" class="btn btn-outline-dark cart-btn" type="button" style="margin-left: 0.3rem;">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="badge">0</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div id="home" style="padding-top: 5rem;"></div>
+
+<section id="banners" class="py-5 bg-light">
+    <div class="container-fluid col-11">
+        <div id="bannersCarousel" class="carousel slide" data-bs-ride="carousel" data-wrap="true">
+            <div class="carousel-indicators">
+                {{#each banner}}
+                <button type="button" data-bs-target="#bannersCarousel" data-bs-slide-to="{{this.no}}" class="btn-secondary {{this.clas}}"
+                    aria-current="true" aria-label="Slide {{this.no}}"></button>
+                {{/each}}
+            </div>
+            <div class="carousel-inner">
+                {{#each banner}}
+                <div class="carousel-item {{this.clas}}" data-bs-interval="3000">
+                    <img src="{{this.im}}" class="d-block w-100 image-fluid" alt="{{this.name}}">
+                </div>
+                {{/each}}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#bannersCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bannersCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="row" id="td">
+        <h2 class="text-center text-secondary">Todays Top Deals</h2>
+        {{#each items}}
+        <div class="col-6 col-md-3 my-3">
+            <div class="card" style="height: 18rem;">
+                <img src="{{this.image}}" class="card-img-top" alt="item Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <button onclick="cadd('datascience')" class="btn btn-dark">{{this.price}}</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>
+
+<section class="container text-center bg-dark">
+    <div class="row col-12">
+        <p class="text-light" style="font-family: 'Times New Roman', Times, serif; font-size: 5rem;"><span class="text-success" style="font-family: 'Times New Roman', Times, serif; font-size: 7rem;">D</span>ont <span class="text-success" style="font-family: 'Times New Roman', Times, serif; font-size: 7rem;">M</span>iss <span class="text-success" style="font-family: 'Times New Roman', Times, serif; font-size: 7rem;">Deals</span></p>
+        <h3 class="text-secondary pb-5" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-weight:bold;">-Exclusive offers that won't be available anywhere else-</h3>
+    </div>
+</section>
+
+<section class="container">
+    
+</section>
