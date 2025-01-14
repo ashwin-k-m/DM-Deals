@@ -1,0 +1,23 @@
+<section class="container text-center col-12" style="padding-top: 5rem;">
+    <a href="/admin/addproduct" class="btn btn-secondary mt-3">Add new item</a>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">name</th>
+                <th scope="col">category</th>
+                <th scope="col">price</th>
+                <th scope="col">image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each items}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.price}}</td>
+                <td><img src="{{this.image}}" class="image0-fluid" style="max-height: 40px; max-width: 80px;"></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
