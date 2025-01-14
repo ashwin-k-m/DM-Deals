@@ -85,7 +85,7 @@ router.get('/', function (req, res, next) {
       clas:""
     }
   ]
-  res.render('index', { items ,banner});
+  res.render('index', { items ,banner,admin:false});
 });
 
 module.exports = router;
