@@ -60,4 +60,9 @@ router.get('/addproduct',function(req,res){
   res.render('admin/addproduct')
 })
 
+router.post('/addproduct',(req,res)=>{
+  console.log(req.body);
+  console.log(req.files.image);
+})
+
 module.exports = router;

@@ -1,22 +1,21 @@
 <section class="container pt-5">
-    <form>
+    <form class="form-control" enctype="multipart/form-data" action="/admin/addproduct" method="post">
         <div class="form-row pt-5 text-center">
             <div class="col-12 m-2">
-                <input type="text" class="form-control" placeholder="First name">
+                <input type="text" class="form-control" name="name" placeholder="name">
             </div>
             <div class="col-12 m-2">
-                <input type="text" class="form-control" placeholder="catergory">
+                <input type="text" class="form-control" name="category" placeholder="catergory">
             </div>
             <div class="col-12 m-2">
-                <input type="number" class="form-control" placeholder="price">
+                <input type="number" class="form-control" name="price" placeholder="price">
             </div>
             <div class="col-12 m-2">
-                <input type="text" class="form-control" placeholder="image">
+                <input type="text" class="form-control" name="link" placeholder="image link">
             </div>
-            <h3>or</h3>
-            <div class="custom-file" style="border-style:ridge;border-width:0.001rem; border-color:black;">
-                <input type="file" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose image file</label>
+            <h4>OR</h4>
+            <div class="col-12 m-2">
+                <input type="file" class="form-control" name="image" placeholder="Image">
             </div>
             <button class="btn btn-secondary mt-3" type="submit">Add and update</button>
         </div>
