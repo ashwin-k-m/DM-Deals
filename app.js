@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var hbs = require('express-handlebars');
 var fileUpload = require('express-fileupload');
-var db=require('./config/connection');
+var db = require('./config/connection');
 const { log } = require('console');
 var app = express();
 
@@ -24,11 +24,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
-db.connect((err)=>{
-  if(err){
-    console.log("error"+err)
+db.connect((err) => {
+  if (err) {
+    console.log("error" + err)
   }
-  else{
+  else {
     console.log("database connected")
   }
 })
