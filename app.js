@@ -24,6 +24,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
+process.env.PWD = process.cwd()
+app.use(express.static(process.env.PWD + '/public/product-images'));
+
 db.connect((err) => {
   if (err) {
     console.log("error" + err)

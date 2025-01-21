@@ -31,13 +31,13 @@
 <section class="container">
     <div class="row" id="td">
         <h2 class="text-center text-secondary">Todays Top Deals</h2>
-        {{#each items}}
+        {{#each products}}
         <div class="col-6 col-md-3 my-3">
             <div class="card" style="height: 18rem;">
-                <img src="{{this.image}}" class="card-img-top" alt="item Image">
+                <img src="{{this.Link}}" class="card-img-top" alt="item Image">
                 <div class="card-body">
-                    <h5 class="card-title">{{this.name}}</h5>
-                    <button onclick="cadd('datascience')" class="btn btn-dark">{{this.price}}</button>
+                    <h5 class="card-title">{{this.Name}}</h5>
+                    <button onclick="cadd('datascience')" class="btn btn-dark">{{this.Price}}</button>
                 </div>
             </div>
         </div>
