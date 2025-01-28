@@ -32,17 +32,17 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                    {{#if user}}
                     <ul class="dropdown-menu" aria-labelledby="productDropdown">
-                        <li class="dropdown-item">
-                            {{#if user}}
-                            {{user.Email}}
-                            {{else}}
-                            Not LoggedIn
-                            {{/if}}</li>
-                        <li><a class="dropdown-item" href="/login">Login</a></li>
-                        <li><a class="dropdown-item" href="/signup">SignUp</a></li>
+                        <li class="dropdown-item">{{user.Email}}</li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
+                    {{else}}
+                    <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        <li><a class="dropdown-item" href="/signup">SignUp</a></li>
+                    </ul>
+                    {{/if}}
                 </li>
             </ul>
             <button id="cart" class="btn btn-outline-dark cart-btn" type="button" style="margin-left: 0.3rem;">
