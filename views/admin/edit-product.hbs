@@ -1,0 +1,26 @@
+<section class="container pt-5">
+    <h3 class="text-secondary text-center pt-4 pb-4">Edit Product</h3>
+    <form class="form-control" enctype="multipart/form-data" action="/admin/edit-product/{{product._id}}" method="post">
+        <div class="form-row pt-5 text-center">
+            <div class="col-12 m-2">
+                <input type="text" class="form-control" name="Name" placeholder="name" value="{{product.Name}}">
+            </div>
+            <div class="col-12 m-2">
+                <input type="text" class="form-control" name="Category" placeholder="category" value="{{product.Category}}">
+            </div>
+            <div class="col-12 m-2">
+                <input type="number" class="form-control" name="Price" placeholder="price" value="{{product.Price}}">
+            </div>
+            <div class="col-12 m-2">
+                <input type="text" class="form-control" name="Link" placeholder="image link" value="{{product.Link}}">
+            </div>
+            <img src="{{product.Link}}" alt="" class="image-fluid pt-3" style="height: 5rem; width:8rem;">
+            <h4 class="pt-4">And</h4>
+            <img src="/product-images/{{product._id}}.jpg" alt="" class="image-fluid" style="height: 4rem; width:8rem;">
+            <div class="col-12 m-2">
+                <input type="file" class="form-control" name="image" placeholder="Image">
+            </div>
+            <button class="btn btn-secondary mt-3" type="submit">Add and update</button>
+        </div>
+    </form>
+</section>
