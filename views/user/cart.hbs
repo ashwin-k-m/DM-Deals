@@ -1,5 +1,5 @@
 <div class="container pt-5">
-    <h2 class="pb-4 pt-4 text-center text-dark">Your Cart</h2>
+    <h2 class="pb-4 pt-4 text-center text-dark" id="urcart">Your Cart</h2>
     <table class="table table-bordered">
         <thead class="table-light">
             <tr>
@@ -23,7 +23,8 @@
                     <span id="quantity-{{this.product._id}}">{{this.quantity}}</span>
                     <button class="btn btn-sm btn-secondary"
                         onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
-                    <a href="/delete-cart-product/'{{this._id}}','{{this.product._id}}'" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to remove {{this.product.Name}} from cart?')">Remove</a>
+                    <a href="javascript:void(0);" onclick="deleteCartProduct('{{this._id}}', '{{this.product._id}}')"
+                        class="btn btn-danger btn-sm">Remove</a>
                 </td>
             </tr>
             {{/each}}
@@ -32,20 +33,20 @@
 </div>
 
 <script>
-    function changeQuantity(cartId,proId,count){
+    function changeQuantity(cartId, proId, count) {
         $.ajax({
-            url:'/change-product-quantity',
-            data:{
-                cart:cartId,
-                product:proId,
-                count:count
+            url: '/change-product-quantity',
+            data: {
+                cart: cartId,
+                product: proId,
+                count: count
             },
-            method:'post',
-            success:(response)=>{
-                if (response.removed) {
-                    $("#row-" + proId).fadeOut();
-                } else if (response.success) {
+            method: 'post',
+            success: (response) => {
+                if (response.success) {
                     $("#quantity-" + proId).text(response.newQuantity);
+                } else if (response.removed) {
+                    $("#row-" + proId).fadeOut();
                 }
             }
         })

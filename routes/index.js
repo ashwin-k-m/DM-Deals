@@ -5,16 +5,16 @@ var productHelpers = require('../helpers/product-helpers')
 var userHelpers = require('../helpers/user-helpers');
 const { resolve } = require('mongodb/lib/core/topologies/read_preference');
 
-const verifyLogin=(req,res,next)=>{
-  if(req.session.loggedIn){
+const verifyLogin = (req, res, next) => {
+  if (req.session.loggedIn) {
     next()
-  }else{
+  } else {
     res.redirect('/login')
   }
 }
 
 /* GET home page. */
-router.get('/',async function (req, res, next) {
+router.get('/', async function (req, res, next) {
   let banner = [
     {
       name: "banner 1",
@@ -48,12 +48,12 @@ router.get('/',async function (req, res, next) {
   ]
 
   let user = req.session.user
-  let cartCount=null
-  if(req.session.user){
-    cartCount=await userHelpers.getCartCount(req.session.user._id)
+  let cartCount = null
+  if (req.session.user) {
+    cartCount = await userHelpers.getCartCount(req.session.user._id)
   }
   productHelpers.getAllProducts().then((products) => {
-    res.render('index', {cartCount, products, user, banner, admin: false });
+    res.render('index', { cartCount, products, user, banner, admin: false });
   })
 });
 
@@ -94,30 +94,31 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/cart',verifyLogin,async (req, res) => {
-  let cartCount=await userHelpers.getCartCount(req.session.user._id)
-  let cartProducts=await userHelpers.getCartProducts(req.session.user._id)
-  res.render('user/cart', { cartProducts , cartCount ,admin: false })
+router.get('/cart', verifyLogin, async (req, res) => {
+  let cartCount = await userHelpers.getCartCount(req.session.user._id)
+  let cartProducts = await userHelpers.getCartProducts(req.session.user._id)
+  res.render('user/cart', { cartProducts, cartCount, admin: false })
 })
 
-router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
-  userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{
+router.get('/add-to-cart/:id', verifyLogin, (req, res) => {
+  userHelpers.addToCart(req.params.id, req.session.user._id).then(() => {
     res.redirect('/#td')
   })
 })
 
-router.post('/change-product-quantity',(req,res,next)=>{
-  userHelpers.changeProductQuantity(req.body).then(()=>{
+router.post('/change-product-quantity', (req, res, next) => {
+  userHelpers.changeProductQuantity(req.body).then(() => {
+    res.redirect('/cart')
   })
 })
 
 router.get('/delete-cart-product/:cartId/:proId', (req, res) => {
   let { cartId, proId } = req.params;
   userHelpers.deleteCartProduct(cartId, proId).then(() => {
-      res.json({ success: true });
+    res.json({ success: true });
   }).catch(() => {
     res.json({ success: false });
-});
+  });
 });
 
 
