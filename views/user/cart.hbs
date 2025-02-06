@@ -1,59 +1,64 @@
 <div class="container pt-5">
-        <h2 class="pb-4 pt-4 text-center text-dark">Your Cart</h2>
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <tbody id="cart-items">
-                {{#each cartProducts}}
-                <tr>
-                    <td><img src="{{this.Link}}" width="50" height="50"></td>
-                    <td>{{this.Name}}</td>
-                    <td>{{this.Category}}</td>
-                    <td class="price">{{this.Price}}</td>
-                    <td>
-                        <button class="btn btn-sm btn-secondary decrement">-</button>
-                        <span class="quantity">1</span>
-                        <button class="btn btn-sm btn-secondary increment">+</button>
-                    </td>
-                    <td class="total-price"> </td>
-                    <td><button class="btn btn-danger btn-sm remove">Remove</button></td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
+    <h2 class="pb-4 pt-4 text-center text-dark">Your Cart</h2>
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cartProducts}}
+            <tr id="row-{{this.product._id}}">
+                <td><img src="{{this.product.Link}}" width="80" height="40"></td>
+                <td>{{this.product.Name}}</td>
+                <td>{{this.product.Category}}</td>
+                <td>{{this.product.Price}}</td>
+                <td>
+                    <button class="btn btn-sm btn-secondary"
+                        onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+                    <span id="quantity-{{this.product._id}}">{{this.quantity}}</span>
+                    <button class="btn btn-sm btn-secondary"
+                        onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
+                    <a href="/delete-cart-product/'{{this._id}}','{{this.product._id}}'" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to remove {{this.product.Name}} from cart?')">Remove</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            $(document).on('click', '.increment', function () {
-                let row = $(this).closest('tr');
-                let quantity = parseInt(row.find('.quantity').text());
-                let price = parseFloat(row.find('.price').text().replace('$', ''));
-                row.find('.quantity').text(quantity + 1);
-                row.find('.total-price').text(`$${(price * (quantity + 1)).toFixed(2)}`);
-            });
-
-            $(document).on('click', '.decrement', function () {
-                let row = $(this).closest('tr');
-                let quantity = parseInt(row.find('.quantity').text());
-                let price = parseFloat(row.find('.price').text().replace('$', ''));
-                if (quantity > 1) {
-                    row.find('.quantity').text(quantity - 1);
-                    row.find('.total-price').text(`$${(price * (quantity - 1)).toFixed(2)}`);
+<script>
+    function changeQuantity(cartId,proId,count){
+        $.ajax({
+            url:'/change-product-quantity',
+            data:{
+                cart:cartId,
+                product:proId,
+                count:count
+            },
+            method:'post',
+            success:(response)=>{
+                if (response.removed) {
+                    $("#row-" + proId).fadeOut();
+                } else if (response.success) {
+                    $("#quantity-" + proId).text(response.newQuantity);
                 }
-            });
-
-            $(document).on('click', '.remove', function () {
-                $(this).closest('tr').remove();
-            });
+            }
+        })
+    }
+    function deleteCartProduct(cartId, proId) {
+        $.ajax({
+            url: `/delete-cart-product/${cartId}/${proId}`,
+            method: 'GET',
+            success: (response) => {
+                if (response.success) {
+                    $("#row-" + proId).fadeOut();
+                }
+            }
         });
-    </script>
+    }
+</script>
