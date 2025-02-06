@@ -16,11 +16,17 @@
             </div>
             <img src="{{product.Link}}" alt="" class="image-fluid pt-3" style="height: 5rem; width:8rem;">
             <h4 class="pt-4">And</h4>
-            <img src="/product-images/{{product._id}}.jpg" alt="" class="image-fluid" style="height: 4rem; width:8rem;">
+            <img src="/product-images/{{product._id}}.jpg" alt="" class="image-fluid" style="height: 4rem; width:8rem;" id="imgview">
             <div class="col-12 m-2">
-                <input type="file" class="form-control" name="image" placeholder="Image">
+                <input type="file" class="form-control" name="image" placeholder="Image" onchange="viewImage(event)">
             </div>
             <button class="btn btn-secondary mt-3" type="submit">Add and update</button>
         </div>
     </form>
 </section>
+
+<script>
+    function viewImage(event){
+        document.getElementById('imgview').src=URL.createObjectURL(event.target.files[0]);
+    }
+</script>

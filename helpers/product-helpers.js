@@ -1,7 +1,5 @@
 var db = require('../config/connection')
 var collections = require('../config/collections')
-const { resolve } = require('mongodb/lib/core/topologies/read_preference')
-const { response } = require('express')
 var objectId=require('mongodb').ObjectID
 
 module.exports = {
