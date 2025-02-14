@@ -3,7 +3,6 @@ var router = express.Router();
 
 var productHelpers = require('../helpers/product-helpers')
 var userHelpers = require('../helpers/user-helpers');
-const { resolve } = require('mongodb/lib/core/topologies/read_preference');
 
 const verifyLogin = (req, res, next) => {
   if (req.session.loggedIn) {
@@ -97,7 +96,8 @@ router.get('/logout', (req, res) => {
 router.get('/cart', verifyLogin, async (req, res) => {
   let cartCount = await userHelpers.getCartCount(req.session.user._id)
   let cartProducts = await userHelpers.getCartProducts(req.session.user._id)
-  res.render('user/cart', { cartProducts, cartCount, admin: false })
+  let total = await userHelpers.getTotalAmount(req.session.user._id)
+  res.render('user/cart', { cartProducts, total, cartCount, admin: false })
 })
 
 router.get('/add-to-cart/:id', verifyLogin, (req, res) => {
@@ -121,5 +121,17 @@ router.get('/delete-cart-product/:cartId/:proId', (req, res) => {
   });
 });
 
+router.get('/place-order', verifyLogin, async (req, res) => {
+  let total = await userHelpers.getTotalAmount(req.session.user._id)
+  res.render('user/place-order', { total, user: req.session.user })
+})
+
+router.post('/place-order', async (req, res) => {
+  let products = await userHelpers.getCartProductList(req.body.userId)
+  let total = await userHelpers.getTotalAmount(req.body.userId)
+  userHelpers.placeOrder(req.body, products, total).then((response) => {
+    res.json({ status: true })
+  })
+})
 
 module.exports = router;
