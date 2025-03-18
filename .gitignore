@@ -1,0 +1,19 @@
+# Node dependencies  
+node_modules  
+
+# Lock files (keep only if using npm)  
+package-lock.json  
+
+# Logs  
+npm-debug.log*  
+logs  
+*.log  
+
+# Compiled files and build artifacts  
+dist/  
+build/  
+coverage/  
+
+# System files  
+.DS_Store  
+Thumbs.db  

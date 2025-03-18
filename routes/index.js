@@ -134,4 +134,8 @@ router.post('/place-order', async (req, res) => {
   })
 })
 
+router.get('/order-confirm', (req, res) => {
+  res.render('user/order-success', { admin: false })
+})
+
 module.exports = router;
